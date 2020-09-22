@@ -1,15 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 
 const GoalsList = ({ goals }) => {
   return (
-    <ScrollView style={styles.list}>
-      {goals.map(({ id, text }) => (
-        <View key={id} style={styles.item}>
-          <Text>{text}</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <View>
+      <FlatList style={styles.list}
+        data={goals}
+        renderItem={itemData => (
+            <View style={styles.item}>
+            <Text>{itemData.item.text}</Text>
+          </View>
+        )}
+      />
+    </View>
   );
 };
 
@@ -24,6 +27,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     marginVertical: 10,
-    padding: 10,
+      padding: 10,
+    
   },
 });

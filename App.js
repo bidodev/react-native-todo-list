@@ -12,8 +12,11 @@ export default function App() {
    */
   const [goals, setGoals] = useState([]);
 
+  /**
+   * Add new goal
+   */
   const handleGoalSubmit = (text) => {
-    setGoals(goals => [...goals, {id: goals.length + 2, text}]);
+    setGoals(goals => [...goals, {key: Math.random().toString(), text}]);
   };
 
 
