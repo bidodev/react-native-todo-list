@@ -1,29 +1,37 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import Header from "./components/header.component.jsx";
-import GoalsList from "./components/goalslist.component.jsx";
+import GoalsList from "./components/goals-list.component.jsx";
 
 export default function App() {
 
   /**
    * 
    */
-  const [goals, setGoals] = useState([]);
+  const [goals, setTasks] = useState([]);
 
   /**
    * Add new goal
    */
   const handleGoalSubmit = (text) => {
-    setGoals(goals => [...goals, {key: Math.random().toString(), text}]);
+    setTasks(goals => [...goals, {key: Math.random().toString(), text}]);
   };
+
+  /**
+   * 
+   * @param {*} key 
+   */
+  const handleDeleteGoal = (key) => {
+    setTasks((prevGoals) => prevGoals.filter((goal) => goal.key !== key))
+  }
 
 
   return (
     <View>
       <Header handleGoalSubmit={handleGoalSubmit}/>
-      <GoalsList goals={goals} />
+      <GoalsList goals={goals} onDelete={handleDeleteGoal} />
       <StatusBar style="auto" />
     </View>
   );
