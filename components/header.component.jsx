@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Button, Modal } from "react-native";
 
-export default function Header({ handleGoalSubmit, isOpen }) {
+export default function Header({ handleGoalSubmit, isOpen, onCancel }) {
   const [goal, setGoal] = useState("");
 
   const handleInputGoal = (text) => {
     setGoal(text);
+  };
+
+  const addGoalHandler = () => {
+    handleGoalSubmit(goal);
+    setGoal("");
+  };
+
+  const cancelGoalHandler = () => {
+    onCancel(false);
   };
 
   return (
@@ -17,7 +26,15 @@ export default function Header({ handleGoalSubmit, isOpen }) {
           onChangeText={handleInputGoal}
           value={goal}
         />
-        <Button title="Add" onPress={() => handleGoalSubmit(goal)} />
+        <View style={styles.wrapperButtons}>
+          <View style={styles.buttonCancel}>
+            <Button title="Cancel" color="#fff" onPress={cancelGoalHandler} />
+          </View>
+
+          <View style={styles.buttonAdd}>
+            <Button title="Add" color="#fff" onPress={addGoalHandler} />
+          </View>
+        </View>
       </View>
     </Modal>
   );
@@ -34,7 +51,21 @@ const styles = StyleSheet.create({
   inputText: {
     borderColor: "black",
     borderWidth: 1,
-    padding: 2,
+    padding: 15,
     width: "80%",
+  },
+  wrapperButtons: {
+    width: "60%",
+    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  buttonCancel: {
+    backgroundColor: "red",
+    width: "40%"
+  },
+  buttonAdd: {
+    backgroundColor: "green",
+    width: "40%"
   },
 });

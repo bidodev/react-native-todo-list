@@ -13,12 +13,14 @@ export default function App() {
   const [goals, setTasks] = useState([]);
   const [isAddMode, setIsAddMode] = useState(false)
   console.log(goals)
+  console.log(isAddMode);
 
   /**
    * Add new goal
    */
   const handleGoalSubmit = (text) => {
-    setTasks(goals => [...goals, {key: Math.random().toString(), text}]);
+    setTasks(goals => [...goals, { key: Math.random().toString(), text }]);
+    setIsAddMode(false)
   };
 
   /**
@@ -33,7 +35,7 @@ export default function App() {
   return (
     <View style={{padding: 30}}>
       <Button title={"Add New Goal"} onPress={() => setIsAddMode(true)} />
-      <Header isOpen={isAddMode} handleGoalSubmit={handleGoalSubmit}/>
+      <Header isOpen={isAddMode} handleGoalSubmit={handleGoalSubmit} onCancel={setIsAddMode}/>
       <GoalsList goals={goals} onDelete={handleDeleteGoal} />
       <StatusBar style="auto" />
     </View>
