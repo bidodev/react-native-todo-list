@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Button } from "react-native";
 
 import Header from "./components/header.component.jsx";
 import GoalsList from "./components/goals-list.component.jsx";
@@ -11,6 +11,8 @@ export default function App() {
    * 
    */
   const [goals, setTasks] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false)
+  console.log(goals)
 
   /**
    * Add new goal
@@ -29,8 +31,9 @@ export default function App() {
 
 
   return (
-    <View>
-      <Header handleGoalSubmit={handleGoalSubmit}/>
+    <View style={{padding: 30}}>
+      <Button title={"Add New Goal"} onPress={() => setIsAddMode(true)} />
+      <Header isOpen={isAddMode} handleGoalSubmit={handleGoalSubmit}/>
       <GoalsList goals={goals} onDelete={handleDeleteGoal} />
       <StatusBar style="auto" />
     </View>
